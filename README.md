@@ -7,3 +7,4 @@ A couple very basic multi-threaded scripts in Java I wrote for practice. These e
 * `imageProcessing` a multithreading script to turn a color scale image to a grayscale image
 * `basicSync` adding examples of how to use the synchronized keyword
 * `free.lock` an example of a lock free stack
+* `examples.lock` an example of `ReadWriteReentrantLock`
