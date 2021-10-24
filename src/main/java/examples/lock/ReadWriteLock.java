@@ -9,7 +9,7 @@ public class ReadWriteLock {
 
     private final static int MAX_PRICE = 1000;
     private final static int numThreads = 3;
-    private static Random random = new Random();
+    private final static Random random = new Random();
 
     public static class InventoryDatabase {
         private TreeMap<Integer,Integer> priceCountMap = new TreeMap<>();
@@ -41,12 +41,7 @@ public class ReadWriteLock {
         public void addItem(int price) {
             lock.lock();
             try {
-                Integer numItems = priceCountMap.get(price);
-                if (numItems == null) {
-                    priceCountMap.put(price, 1);
-                } else {
-                    priceCountMap.put(price, numItems + 1);
-                }
+                priceCountMap.merge(price, 1, Integer::sum);
             } finally {
                 lock.unlock();
             }
