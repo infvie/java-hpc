@@ -68,7 +68,6 @@ public class Gray {
     }
 
     public static void recolorImage(BufferedImage img, BufferedImage out, int leftCorner, int topCorner, int width, int height) {
-        System.out.println(topCorner);
         for (int x = leftCorner; x < leftCorner + width; x++) {
             for (int y = topCorner; y < topCorner + height; y++) {
                 recolor(img, out, x, y);
@@ -110,29 +109,31 @@ public class Gray {
 
 
     public static void main(String[] args) throws IOException {
-        File file = new File("./images/image.jpeg");
+        File file = new File("./images/long.jpeg");
         System.out.println("Reading image in from " + file);
 
         BufferedImage img = ImageIO.read(file);
         BufferedImage out = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
 
         // start time
-        long start = System.currentTimeMillis();
+
 
         // single threaded
-//        singleThreadedRecolor(img,out);
-//        long end = System.currentTimeMillis();
-//        System.out.println(end-start +  " ms taken");
+        long start = System.nanoTime();
+        singleThreadedRecolor(img,out);
+        long end = System.nanoTime();
+        System.out.println(end-start +  " ns taken with 1 thread");
 
         // multi thread
-        multiThreadedRecolor(img,out,4);
-        long end = System.currentTimeMillis();
-        System.out.println(end-start +  " ms taken");
+        start = System.nanoTime();
+        multiThreadedRecolor(img,out,2);
+        end = System.nanoTime();
+        System.out.println(end-start +  " ns taken with 4 threads");
 
         // write image
-//        File result = new File("./images/result.jpg");
-//        System.out.println("Writing file to " + result);
-//        ImageIO.write(out, "jpg", result);
+        File result = new File("./images/long_out.jpg");
+        System.out.println("Writing file to " + result);
+        ImageIO.write(out, "jpg", result);
 
     }
 }
