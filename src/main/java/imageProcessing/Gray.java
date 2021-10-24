@@ -68,6 +68,7 @@ public class Gray {
     }
 
     public static void recolorImage(BufferedImage img, BufferedImage out, int leftCorner, int topCorner, int width, int height) {
+        System.out.println(topCorner);
         for (int x = leftCorner; x < leftCorner + width; x++) {
             for (int y = topCorner; y < topCorner + height; y++) {
                 recolor(img, out, x, y);
@@ -109,7 +110,7 @@ public class Gray {
 
 
     public static void main(String[] args) throws IOException {
-        File file = new File("./images/long.jpeg");
+        File file = new File("./images/image.jpeg");
         System.out.println("Reading image in from " + file);
 
         BufferedImage img = ImageIO.read(file);
@@ -124,7 +125,7 @@ public class Gray {
 //        System.out.println(end-start +  " ms taken");
 
         // multi thread
-        multiThreadedRecolor(img,out,8);
+        multiThreadedRecolor(img,out,4);
         long end = System.currentTimeMillis();
         System.out.println(end-start +  " ms taken");
 
